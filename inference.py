@@ -31,8 +31,8 @@ RESOURCE_PATH = Path("resources")
 
 def run():
     # Read the input
-    input_oct_image = load_image_file_as_array(
-        location=INPUT_PATH / "images/oct",
+    input_color_fundus_image = load_image_file_as_array(
+        location=INPUT_PATH / "images/color-fundus",
     )
     input_age_in_months = load_json_file(
          location=INPUT_PATH / "age-in-months.json",
@@ -47,12 +47,12 @@ def run():
     # TODO: add your custom inference here
 
     # For now, let us make bogus predictions
-    output_retinal_vessel_segmentation = numpy.eye(4, 2)
+    output_binary_vessel_segmentation = numpy.eye(4, 2)
 
     # Save your output
     write_array_as_image_file(
-        location=OUTPUT_PATH / "images/vessel-segmentation",
-        array=output_retinal_vessel_segmentation,
+        location=OUTPUT_PATH / "images/binary-vessel-segmentation",
+        array=output_binary_vessel_segmentation,
     )
     
     return 0

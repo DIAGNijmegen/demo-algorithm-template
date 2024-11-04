@@ -1,6 +1,4 @@
-Note: this is a demo algorithm template. Algorithm editors should be able to download their own customized one.
-
-# 🚀 Demo Vessel Segmentation Template
+# 🚀 Demo challenge algorithm Template
 
 Thank you for hosting your algorithm on Grand-Challenge.org, we appreciate it!
 
@@ -22,12 +20,12 @@ If the documentation does not answer your question, feel free to reach out to us
 The examples in this template illustrate one approach, but they are not the only option. Any container image will do as long as it:
 
 
-- reads from the `/input/images/oct`
+- reads from the `/input/images/color-fundus`
 
 - reads from the `/input/age-in-months.json`
 
 
-- outputs, correctly, to `/output/images/vessel-segmentation`
+- outputs, correctly, to `/output/images/binary-vessel-segmentation`
 
 
 ---

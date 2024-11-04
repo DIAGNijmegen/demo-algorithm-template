@@ -4,7 +4,7 @@
 set -e
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-DOCKER_IMAGE_TAG="miriam-test"
+DOCKER_IMAGE_TAG="demo-challenge-algorithm"
 
 
 # Check if an argument is provided
