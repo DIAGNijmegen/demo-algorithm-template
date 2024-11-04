@@ -1,3 +1,5 @@
+Note: this is a demo algorithm template. Algorithm editors should be able to download their own customized one.
+
 # 🚀 Demo Vessel Segmentation Template
 
 Thank you for hosting your algorithm on Grand-Challenge.org, we appreciate it!
