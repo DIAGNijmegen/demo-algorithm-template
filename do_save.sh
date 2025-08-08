@@ -6,15 +6,14 @@ set -e
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # Set default container name
-DOCKER_IMAGE_TAG="demo-challenge-algorithm"
+DOCKER_IMAGE_TAG="example-algorithm-demo-challenge-algorithm"
 
-# Check if an argument is provided
-if [ "$#" -eq 1 ]; then
-    DOCKER_IMAGE_TAG="$1"
-fi
-
-echo "=+= (Re)build the container"
-source "${SCRIPT_DIR}/do_build.sh" "$DOCKER_IMAGE_TAG"
+echo ""
+echo "= STEP 1 = (Re)build the image"
+export DOCKER_QUIET_BUILD=1
+source "${SCRIPT_DIR}/do_build.sh"
+echo "==== Done"
+echo ""
 
 # Get the build information from the Docker image tag
 build_timestamp=$( docker inspect --format='{{ .Created }}' "$DOCKER_IMAGE_TAG")
@@ -28,10 +27,29 @@ fi
 formatted_build_info=$(echo $build_timestamp | sed -E 's/(.*)T(.*)\..*Z/\1_\2/' | sed 's/[-,:]/-/g')
 
 # Set the output filename with timestamp and build information
-output_filename="${SCRIPT_DIR}/${DOCKER_IMAGE_TAG}_${formatted_build_info}.tar.gz"
+output_filename="${DOCKER_IMAGE_TAG}_${formatted_build_info}.tar.gz"
+output_path="${SCRIPT_DIR}/$output_filename"
 
-# Save the Docker container and gzip it
-echo "Saving the container as ${output_filename}. This can take a while."
-docker save "$DOCKER_IMAGE_TAG" | gzip -c > "$output_filename"
+# Save the Docker-container image and gzip it
+echo "= STEP 2 = Saving the image"
+echo "This can take a while."
 
-echo "Container saved as ${output_filename}"
+docker save "$DOCKER_IMAGE_TAG" | gzip -c > "$output_path"
+printf "Saved as: \e[32m${output_filename}\e[0m\n"
+
+echo "==== Done"
+echo ""
+
+
+# Create the tarbal
+echo "= STEP 3 = Packing the model"
+echo "This can take a while."
+output_tarball_name="${SCRIPT_DIR}/model.tar.gz"
+
+tar -czf $output_tarball_name -C "${SCRIPT_DIR}/model" .
+printf "Saved as: \e[model.tar.gz\e[0m\n"
+
+echo "==== Done"
+echo ""
+
+printf "\e[31mIMPORTANT: Please add the model.tar.gz as seperate Model to your Algorithm!\e[0m\n"
